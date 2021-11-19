@@ -1,0 +1,10 @@
+version: "3"
+services:
+    minecraft-server:
+        image:  minecraft-server
+        volumes:
+            - /opt/minecraftServer/minecraft1.17/data:/opt/minecraft/data
+        ports:
+            - 25565:25565/tcp
+        restart: unless-stopped
+        stop_grace_period: 1m
