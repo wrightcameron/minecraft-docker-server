@@ -5,8 +5,19 @@
 map='world'
 backupDir='<MINECRAFT_DIR>/worldBackup'
 tarName=$map-$(date +%d-%m-%Y).tar.gz
+
+if [[ ! -d $backupDir ]]; then
+    echo "Couldn't find $backupDir, so creating it."
+    mkdir $backupDir
+fi
 cd $backupDir
-tar czvf $tarName ../data/$map &> /dev/null
-chown minecraft:minecraft $tarName
-# Remove worlds older than 5 days.
-find $backupDir/*.gz -mtime +5 -exec rm {} \;
+
+if [[ -a ../data/$map ]]; then
+    tar czvf $tarName ../data/$map &> /dev/null
+    chown minecraft:minecraft $tarName
+    # Remove worlds older than 5 days.
+    find $backupDir/*.gz -mtime +5 -exec rm {} \;
+else
+    echo "The $map doesn't appear to exist in minecraft dir."
+fi
+
