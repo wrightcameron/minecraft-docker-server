@@ -1,6 +1,6 @@
-FROM adoptopenjdk:16-jre
+FROM openjdk:17
 
-RUN apt-get update && apt-get -y install apt-utils wget
+# RUN apt-get update && apt-get -y install apt-utils wget
 RUN mkdir -p /minecraft/data
 WORKDIR /minecraft
 COPY startMinecraft.sh .
