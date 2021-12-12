@@ -23,6 +23,10 @@ function install() {
 		mkdir $minecraft/worldBackup
 		chown minecraft:minecraft -R $minecraftDir
 	fi
+	
+	# Download the minecraft server jar file.
+	wget https://launcher.mojang.com/v1/objects/3cf24a8694aca6267883b17d934efacc5e44440d/server.jar -O $minecraftDir/data/server.jar
+
 	# Copy the docker-compose file to the new directory
 	if [[ ! -f $minecraftDir/docker-compose.yml ]]; then
 		cp $repoPath/docker-compose.yml $minecraftDir
