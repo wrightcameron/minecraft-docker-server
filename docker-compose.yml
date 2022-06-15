@@ -2,9 +2,13 @@ version: "3"
 services:
     minecraft-server:
         image:  minecraft-server
+        container_name: minecraft-server
+        build:
+            context: .
         volumes:
             - <MINECRAFT_DIR>/data:/opt/minecraft/data
         ports:
             - 25565:25565/tcp
         restart: unless-stopped
         stop_grace_period: 1m
+
