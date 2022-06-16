@@ -23,9 +23,6 @@ function install() {
 		mkdir $minecraft/worldBackup
 		chown minecraft:minecraft -R $minecraftDir
 	fi
-	
-	# Download the minecraft server jar file.
-	wget https://launcher.mojang.com/v1/objects/3cf24a8694aca6267883b17d934efacc5e44440d/server.jar -O $minecraftDir/data/server.jar
 
 	# Copy the docker-compose file to the new directory
 	if [[ ! -f $minecraftDir/docker-compose.yml ]]; then
@@ -41,9 +38,10 @@ function install() {
 	fi
 	# Setup world backup using cronjob
 	if [[ ! -f $minecraftDir/backup.sh ]]; then
-		# The cron job will need to be setup under user minecraft for secuerity
+		# The cron job will need to be setup under user minecraft for security
 		cp $repoPath/backup.sh $minecraftDir
 		sed -i "s|<MINECRAFT_DIR>|${minecraftDir}|g" $minecraftDir/backup.sh
+		# TODO Need to add the cronjob as the minecraft user, find out how to do that in a script.
 	fi
 	# Chown at the end after we have moved everything into the correct place
 	if [ -d $minecraftDir ]; then
@@ -55,7 +53,7 @@ function uninstall() {
 	if [[ -f /etc/systemd/system/minecraft.service ]]; then
 		rm /etc/systemd/system/minecraft.service
 	fi
-	#TODO Need to finish the rest of the uninstall
+	# TODO Need to finish the rest of the uninstall
 }
 
 function verifyServer() {
