@@ -1,4 +1,4 @@
-name: Minecraft Server Dockerfile CI
+name: Minecraft Server Docker Image CI
 
 on:
   workflow_dispatch:
